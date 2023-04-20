@@ -28,10 +28,11 @@ def execute_python_file(file: str):
     if not os.path.isfile(file_path):
         return f"Error: File '{file}' does not exist."
 
-    if we_are_running_in_a_docker_container():
-        result = subprocess.run(
-            f"python {file_path}", capture_output=True, encoding="utf8", shell=True
-        )
+    if not we_are_running_in_a_docker_container():
+        # print("*"*20)
+        # print("*"*20)
+        # print("*"*20)
+        result=subprocess.run(["/home/andres/Auto-GPT/env/bin/python", file_path], capture_output=True, encoding="utf8")
         if result.returncode == 0:
             return result.stdout
         else:
